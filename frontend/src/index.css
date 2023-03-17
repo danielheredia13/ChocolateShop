@@ -1,0 +1,38 @@
+main {
+  min-height: 90vh;
+}
+
+h2 {
+  padding-bottom: 10px;
+}
+
+.header_wrap{
+ 
+}
+
+.header_btn {
+position: relative;
+left: 65%;
+}
+
+.rating span i {
+  color: #fcee52;
+}
+
+.chechout-container {
+  display: flex;
+  justify-content: center;
+}
+
+.checkout-steps {
+  display: inline-block;
+  margin: 10px 10px 20px;
+  padding: 5px 15px;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(65, 65, 65);
+}
+
+.place-order-button-wrap{
+  margin: 0px auto;
+}
