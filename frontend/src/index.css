@@ -6,13 +6,9 @@ h2 {
   padding-bottom: 10px;
 }
 
-.header_wrap{
- 
-}
-
 .header_btn {
-position: relative;
-left: 65%;
+  position: relative;
+  left: 65%;
 }
 
 .rating span i {
@@ -33,6 +29,6 @@ left: 65%;
   color: rgb(65, 65, 65);
 }
 
-.place-order-button-wrap{
+.place-order-button-wrap {
   margin: 0px auto;
 }

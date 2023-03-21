@@ -1,145 +1,155 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from "react-router-dom"
-import { LinkContainer } from "react-router-bootstrap"
-import {Table, Form, Col, Row, Button } from "react-bootstrap"
-import Message from "../components/Message"
-import Loader from "../components/Loader"
-import { getUserDetails, updateUserProfile } from '../actions/userAccions'
-import { useDispatch, useSelector } from 'react-redux'
-import { myListOrders } from '../actions/orderActions'
-
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
+import { Table, Form, Col, Row, Button } from "react-bootstrap";
+import Message from "../components/Message";
+import Loader from "../components/Loader";
+import { getUserDetails, updateUserProfile } from "../actions/userAccions";
+import { useDispatch, useSelector } from "react-redux";
+import { myListOrders } from "../actions/orderActions";
 
 const ProfileScreen = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [list, setList] = useState([]);
 
-    const [name, setName] =useState("")
-    const [email, setEmail] =useState("")
-    const [password, setPassword] =useState("")
-    const [confirmPassword, setConfirmPassword] =useState("")
-    const [ message, setMessage] = useState("")
-    const [list, setList] = useState([])
-    
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const userDetails = useSelector(state => state.userDetails)
-    const { loading, error, user } = userDetails
+  const userDetails = useSelector((state) => state.userDetails);
+  const { loading, error, user } = userDetails;
 
-    const userLogin = useSelector(state => state.userLogin)
-    const { userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-    const orderMyList = useSelector(state => state.orderMyList)
-    const { loading: listLoading, success, orders, error: listError } = orderMyList
+  const orderMyList = useSelector((state) => state.orderMyList);
+  const {
+    loading: listLoading,
+    success,
+    orders,
+    error: listError,
+  } = orderMyList;
 
-
-    useEffect(() => {
-       
-    
-        if(!userInfo){  
-            navigate("/login")
-        } else {
-            if(!user) {
-                dispatch(getUserDetails())
-               
-            } else if (user) {
-               user && setName(user.name)
-               user && setEmail(user.email)
-            }  
-        }
-          if (orders) {
-                setList(orders)
-            }
-    },[user, userInfo, orders])
-
-    const viewOrdersHandler =() => {
-       if (!success) {
-            dispatch(myListOrders())
-       }
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/login");
+    } else {
+      if (!user) {
+        dispatch(getUserDetails());
+      } else if (user) {
+        user && setName(user.name);
+        user && setEmail(user.email);
+      }
     }
-
-    const submitHandler = (e) => {
-          e.preventDefault()
-
-        if (password !== confirmPassword) {
-         
-            setMessage("Passwords do not match")
-
-        } else {
-            dispatch(updateUserProfile({ id: user._id, name: name, email: email, password: password }))
-           
-        }
-
-     
+    if (orders) {
+      setList(orders);
     }
+  }, [user, userInfo, orders]);
+
+  const viewOrdersHandler = () => {
+    if (!success) {
+      dispatch(myListOrders());
+    }
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match");
+    } else {
+      dispatch(
+        updateUserProfile({
+          id: user._id,
+          name: name,
+          email: email,
+          password: password,
+        })
+      );
+    }
+  };
 
   return (
     <Row>
-    <Col md={3}>
-         <h2>Profile</h2>
-        { message && <Message variant="danger" text={message} /> }
-        { error && <Message variant="danger" text={error} /> }
-        { loading && <Loader /> }
+      <Col md={3}>
+        <h2>Profile</h2>
+        {message && <Message variant="danger" text={message} />}
+        {error && <Message variant="danger" text={error} />}
+        {loading && <Loader />}
         <Form onSubmit={submitHandler}>
-            <Form.Group  controlId='name'>
-                <Form.Label>Full Name</Form.Label>
-                <Form.Control
-                className='rounded'
-                type="text"
-                placeholder='Enter Name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                ></Form.Control>
-            </Form.Group>
-            <Form.Group  controlId='email'>
-                <Form.Label>Email Address</Form.Label>
-                <Form.Control
-                className='rounded'
-                type="email"
-                placeholder='Enter email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                ></Form.Control>
-            </Form.Group>
-            <Form.Group  controlId='password'>
-                <Form.Label>Pasword</Form.Label>
-                <Form.Control
-                className='rounded'
-                type="password"
-                placeholder='Enter password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                ></Form.Control>
-            </Form.Group>
-            <Form.Group  controlId='confirmPassword'>
-                <Form.Label>Confirm Pasword</Form.Label>
-                <Form.Control
-                className='rounded'
-                type="password"
-                placeholder='Confirm password'
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                ></Form.Control>
-            </Form.Group>
-            <Button type='submit' className='my-3 rounded' variant='primary'>Update</Button>
+          <Form.Group controlId="name">
+            <Form.Label>Full Name</Form.Label>
+            <Form.Control
+              className="rounded"
+              type="text"
+              placeholder="Enter Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="email">
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control
+              className="rounded"
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Label>Pasword</Form.Label>
+            <Form.Control
+              className="rounded"
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlId="confirmPassword">
+            <Form.Label>Confirm Pasword</Form.Label>
+            <Form.Control
+              className="rounded"
+              type="password"
+              placeholder="Confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Button type="submit" className="my-3 rounded" variant="primary">
+            Update
+          </Button>
         </Form>
-    </Col>
-    <Col md={9}>
+      </Col>
+      <Col md={9}>
         <h2> My Orders</h2>
-        { listLoading && <Loader />}
-        { listError && <Message variant="danger" text={listError}/> }
-        <Button onClick={viewOrdersHandler} className='btn btn-sm rounded mb-3' variant='info'>View Orders</Button>
-         <Table striped bordered hover responsive className='table-sm'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {list && list.map((order) => (
+        {listLoading && <Loader />}
+        {listError && <Message variant="danger" text={listError} />}
+        <Button
+          onClick={viewOrdersHandler}
+          className="btn btn-sm rounded mb-3"
+          variant="info"
+        >
+          View Orders
+        </Button>
+        <Table striped bordered hover responsive className="table-sm">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>DATE</th>
+              <th>TOTAL</th>
+              <th>PAID</th>
+              <th>DELIVERED</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {list &&
+              list.map((order) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
@@ -148,34 +158,33 @@ const ProfileScreen = () => {
                     {order.isPaid ? (
                       order.paidAt.substring(0, 10)
                     ) : (
-                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                      <i className="fas fa-times" style={{ color: "red" }}></i>
                     )}
                   </td>
                   <td>
                     {order.isDelivered ? (
                       order.deliveredAt.substring(0, 10)
                     ) : (
-                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                      <i className="fas fa-times" style={{ color: "red" }}></i>
                     )}
                   </td>
                   <td>
                     <LinkContainer to={`/order/${order._id}`}>
-                      <Button className='btn-sm' variant='light'>
+                      <Button className="btn-sm" variant="light">
                         Details
                       </Button>
                     </LinkContainer>
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </Table>
-         
-    </Col>        
+          </tbody>
+        </Table>
+      </Col>
     </Row>
-  )
-}
+  );
+};
 
-export default ProfileScreen
+export default ProfileScreen;
 
 /*
 

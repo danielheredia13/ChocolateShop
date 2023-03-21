@@ -1,5 +1,5 @@
-import React from "react"
-import { Container } from "react-bootstrap"
+import React from "react";
+import { Container } from "react-bootstrap";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -13,15 +13,11 @@ import ShippingScreen from "./screens/ShippingScreen";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
-import UserListScreen from "./screens/UserListScreen"
-import UserEditScreen from "./screens/UserEditScreen"
-import ProductListScreen from "./screens/ProductListScreen"
+import UserListScreen from "./screens/UserListScreen";
+import UserEditScreen from "./screens/UserEditScreen";
+import ProductListScreen from "./screens/ProductListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import OrderListScreen from "./screens/OrderListScreen";
-
-
-
-
 
 const App = () => {
   return (
@@ -43,14 +39,17 @@ const App = () => {
             <Route path="/admin/userlist" element={<UserListScreen />} />
             <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
             <Route path="/admin/productlist" element={<ProductListScreen />} />
-            <Route path="/admin/product/:id/edit" element={<ProductEditScreen />} />
+            <Route
+              path="/admin/product/:id/edit"
+              element={<ProductEditScreen />}
+            />
             <Route path="/admin/orderlist" element={<OrderListScreen />} />
           </Routes>
-       </Container>
-       </main>
-       <Footer />
+        </Container>
+      </main>
+      <Footer />
     </>
   );
-}
+};
 
 export default App;
