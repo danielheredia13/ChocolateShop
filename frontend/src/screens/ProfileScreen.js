@@ -47,7 +47,7 @@ const ProfileScreen = () => {
     if (orders) {
       setList(orders);
     }
-  }, [user, userInfo, orders]);
+  }, [user, userInfo, orders, dispatch, navigate]);
 
   const viewOrdersHandler = () => {
     if (!success) {

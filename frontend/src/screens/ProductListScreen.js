@@ -44,7 +44,7 @@ const ProductListScreen = () => {
     } else {
       dispatch(listProducts());
     }
-  }, [success, createdProduct, userInfo]);
+  }, [success, createdProduct, userInfo, dispatch, navigate]);
 
   const deleteProductHandler = (id) => {
     if (window.confirm("Delete Product ?")) {
@@ -71,9 +71,9 @@ const ProductListScreen = () => {
           </Button>
         </Col>
       </Row>
-      {loading ? (
+      {loading || loadingCreate || loadingDelete ? (
         <Loader />
-      ) : error ? (
+      ) : error || errorCreate || errorDelete ? (
         <Message variant="danger" text={error} />
       ) : (
         <Table striped bordered hover responsive className="table-sm">

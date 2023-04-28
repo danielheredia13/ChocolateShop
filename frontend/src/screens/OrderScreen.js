@@ -79,11 +79,25 @@ const OrderScreen = () => {
       dispatch(getOrderDetails(id));
     }
 
+    const successPaymentHandler = (paymentDetails) => {
+      dispatch(payOrder(order && order._id, paymentDetails));
+    };
+
     if (paymentDetails.status === "COMPLETED") {
       successPaymentHandler(paymentDetails);
       dispatch({ type: ORDER_PAY_RESET });
     }
-  }, [paypalClientId, paymentDetails, success, successDeliver]);
+  }, [
+    paypalClientId,
+    paymentDetails,
+    success,
+    successDeliver,
+    dispatch,
+    id,
+    navigate,
+    order,
+    userInfo,
+  ]);
 
   const addDesimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
@@ -95,17 +109,13 @@ const OrderScreen = () => {
     );
   }
 
-  const successPaymentHandler = (paymentDetails) => {
-    dispatch(payOrder(order && order._id, paymentDetails));
-  };
-
   const deliverHandler = (id) => {
     dispatch(deliverOrder(id));
   };
 
-  return loading ? (
+  return loading || loadingDeliver || loadingPay ? (
     <Loader />
-  ) : error ? (
+  ) : error || errorDeliver || errorPay ? (
     <Message variant="danger" text={error} />
   ) : (
     <>

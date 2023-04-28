@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
   const stepBGColor1 = step1 ? "#D1CECD" : "FFF";

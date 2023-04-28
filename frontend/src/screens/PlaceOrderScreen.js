@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Row, Button, ListGroup, Card, Image } from "react-bootstrap";
 import Message from "../components/Message";
+import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { createOrder, getOrderDetails } from "../actions/orderActions";
@@ -57,6 +58,7 @@ const PlaceOrderScreen = () => {
 
   return (
     <>
+      {loading && <Loader />}
       <CheckoutSteps step1={true} step2={true} step3={true} step4={true} />
       <Row>
         <Col md={8}>

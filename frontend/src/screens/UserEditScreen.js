@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const UserEditScreen = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
 
   const [name, setName] = useState("");
@@ -32,7 +31,7 @@ const UserEditScreen = () => {
     } else {
       dispatch(getUserDetailsById(id));
     }
-  }, [userInfo, id, user]);
+  }, [userInfo, id, user, dispatch]);
 
   const updateHandler = (e) => {
     const user = {
@@ -52,8 +51,8 @@ const UserEditScreen = () => {
       <Link to="/admin/userlist" className="btn btn-sm btn-dark mb-3 rounded">
         Go Back
       </Link>
-      {error && <Message variant="danger" text={error} />}
-      {loading && <Loader />}
+      {error || (updatedError && <Message variant="danger" text={error} />)}
+      {loading || (updatedLoading && <Loader />)}
       <Form onSubmit={updateHandler}>
         <Form.Group controlId="name">
           <Form.Label>Full Name</Form.Label>

@@ -7,7 +7,7 @@ import FormContainer from "../components/FormContainer";
 import { register } from "../actions/userAccions";
 import { useDispatch, useSelector } from "react-redux";
 
-const RegisterScreen = (location) => {
+const RegisterScreen = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,8 +22,6 @@ const RegisterScreen = (location) => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo: user } = userLogin;
-
-  //  const redirect = location.search ? location.search.split("=")[1] : "/"
 
   useEffect(() => {
     if (user) {

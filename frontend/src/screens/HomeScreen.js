@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Product from "../components/Product";
 import Loader from "../components/Loader";
@@ -18,7 +18,10 @@ const HomeScreen = () => {
 
   return (
     <>
-      <h1>Latest Products</h1>
+      <div className="logo-box">
+        <Image className="logo mx-auto" src="/uploads\fou27.jpg" />
+      </div>
+      <h3>Latest Products</h3>
       {loading ? (
         <Loader />
       ) : error ? (

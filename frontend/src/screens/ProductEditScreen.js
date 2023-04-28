@@ -50,7 +50,7 @@ const ProductEditScreen = () => {
         product && setCountInStock(product.countInStock);
       }
     }
-  }, [product, id, updatedProduct]);
+  }, [product, id, updatedProduct, dispatch, navigate, success]);
 
   const updateHandler = (e) => {
     dispatch(
@@ -98,8 +98,8 @@ const ProductEditScreen = () => {
       >
         Go Back
       </Link>
-      {error && <Message variant="danger" text={error} />}
-      {loading && <Loader />}
+      {error || (errorUpdate && <Message variant="danger" text={error} />)}
+      {loading || (loadingUpdate && <Loader />)}
       <Form onSubmit={updateHandler}>
         <Form.Group controlId="name">
           <Form.Label>Name</Form.Label>
